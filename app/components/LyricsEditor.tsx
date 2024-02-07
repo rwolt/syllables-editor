@@ -1,41 +1,32 @@
 import { Box, Flex, VStack, Textarea } from "@chakra-ui/react";
 import { Dispatch, SetStateAction, useState } from "react";
 import { syllable } from "syllable";
-import { cheerio } from "cheerio";
-import { RhymeBrainWordObject } from "../page";
+import {
+  WordSearchParameter,
+  DataMuseWordObject,
+  RhymeBrainWordObject,
+} from "../page";
+import { fetchWordData } from "./utils/fetchFunctions";
 
 type LyricsEditorProps = {
+  wordSearchParameter: WordSearchParameter;
   setCurrentWord: Dispatch<SetStateAction<string>>;
   setRhymes: Dispatch<SetStateAction<RhymeBrainWordObject[]>>;
+  setSlantRhymes: Dispatch<SetStateAction<string[]>>;
+  setSynonyms: Dispatch<SetStateAction<DataMuseWordObject[]>>;
+  setWordBank: Dispatch<SetStateAction<DataMuseWordObject[]>>;
 };
 
 export const LyricsEditor = ({
+  wordSearchParameter,
   setCurrentWord,
   setRhymes,
+  setSlantRhymes,
+  setSynonyms,
+  setWordBank,
 }: LyricsEditorProps) => {
   const [text, setText] = useState("");
   const [syllableCounts, setSyllableCounts] = useState<number[]>([]);
-
-  const fetchRhymes = async (word: string) => {
-    console.log("fetching rhyme data");
-    const response = await fetch(
-      `https://rhymebrain.com/talk?function=getRhymes&word=${word}`
-    );
-    const data = await response.json();
-    return data;
-  };
-
-  const fetchSlantRhymes = async (word: string) => {
-    console.log("fetching slant rhyme data");
-    const response = await fetch(`http://www.b-rhymes.com/rhyme/word/${word}`);
-    const html = response.text();
-    const $ = cheerio.load(html);
-    const words = $(".rhyme-table .word")
-      .map((el: HTMLAnchorElement) => {
-        $(el).text.trim();
-      })
-      .get(); // Convert to standard array
-  };
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const lines = e.target.value.split("\n");
@@ -51,11 +42,19 @@ export const LyricsEditor = ({
     if (selection && selection.toString()) {
       console.log("handleTextSelection");
       const word = selection.toString();
-      console.log(word);
       setCurrentWord(word);
-      const rhymeData = await fetchRhymes(word);
-      console.log(rhymeData);
-      setRhymes(rhymeData);
+      const results = await fetchWordData(wordSearchParameter, word);
+      console.log(results);
+      switch (wordSearchParameter) {
+        case "rhyme":
+          setRhymes(results);
+        case "slantRhyme":
+          setSlantRhymes(results);
+        case "synonym":
+          setSynonyms(results);
+        case "wordBank":
+          setWordBank(results);
+      }
     }
   };
 

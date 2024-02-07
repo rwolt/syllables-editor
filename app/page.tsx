@@ -12,7 +12,12 @@ export type RhymeBrainWordObject = {
   syllables: string;
 };
 
-export type WordSeachParameter =
+export type DataMuseWordObject = {
+  word: string;
+  score: number;
+};
+
+export type WordSearchParameter =
   | "rhyme"
   | "slantRhyme"
   | "synonym"
@@ -20,10 +25,12 @@ export type WordSeachParameter =
 
 export default function Home() {
   const [currentWord, setCurrentWord] = useState("");
-  const [wordSearchParamter, setWordSearchParameter] =
-    useState<WordSeachParameter>("rhyme");
+  const [wordSearchParameter, setWordSearchParameter] =
+    useState<WordSearchParameter>("rhyme");
   const [rhymes, setRhymes] = useState<RhymeBrainWordObject[]>([]);
   const [slantRhymes, setSlantRhymes] = useState<string[]>([]);
+  const [wordBank, setWordBank] = useState<DataMuseWordObject[]>([]);
+  const [synonyms, setSynonyms] = useState<DataMuseWordObject[]>([]);
 
   return (
     <Box w="full">
@@ -31,12 +38,23 @@ export default function Home() {
         Syllable Text Editor
       </Heading>
       <Flex>
-        <LyricsEditor setCurrentWord={setCurrentWord} setRhymes={setRhymes} />
+        <LyricsEditor
+          wordSearchParameter={wordSearchParameter}
+          setCurrentWord={setCurrentWord}
+          setRhymes={setRhymes}
+          setSlantRhymes={setSlantRhymes}
+          setSynonyms={setSynonyms}
+          setWordBank={setWordBank}
+        />
         <SearchResults
           currentWord={currentWord}
+          setCurrentWord={setCurrentWord}
+          wordSearchParameter={wordSearchParameter}
           setWordSearchParameter={setWordSearchParameter}
           rhymes={rhymes}
           slantRhymes={slantRhymes}
+          synonyms={synonyms}
+          wordBank={wordBank}
         />
       </Flex>
     </Box>

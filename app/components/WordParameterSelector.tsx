@@ -1,15 +1,15 @@
 import { Button, HStack } from "@chakra-ui/react";
 import { Dispatch, SetStateAction } from "react";
-import { WordSeachParameter } from "../page";
+import { WordSearchParameter } from "../page";
 
 type WordParameterSelectorProps = {
-  setWordSearchParameter: Dispatch<SetStateAction<WordSeachParameter>>;
+  setWordSearchParameter: Dispatch<SetStateAction<WordSearchParameter>>;
 };
 
 export const WordParameterSelector = ({
   setWordSearchParameter,
 }: WordParameterSelectorProps) => {
-  const handleButtonClick = (searchParam: WordSeachParameter) => {
+  const handleButtonClick = (searchParam: WordSearchParameter) => {
     setWordSearchParameter(searchParam);
   };
 
