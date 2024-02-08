@@ -8,18 +8,14 @@ type LyricsEditorProps = {
   wordSearchParameter: WordSearchParameter;
   setCurrentWord: Dispatch<SetStateAction<string>>;
   setRhymes: Dispatch<SetStateAction<string[]>>;
-  setSlantRhymes: Dispatch<SetStateAction<string[]>>;
-  setSynonyms: Dispatch<SetStateAction<DataMuseWordObject[]>>;
-  setWordBank: Dispatch<SetStateAction<DataMuseWordObject[]>>;
+  setSynonyms: Dispatch<SetStateAction<string[]>>;
 };
 
 export const LyricsEditor = ({
   wordSearchParameter,
   setCurrentWord,
   setRhymes,
-  setSlantRhymes,
   setSynonyms,
-  setWordBank,
 }: LyricsEditorProps) => {
   const [text, setText] = useState("");
   const [syllableCounts, setSyllableCounts] = useState<number[]>([]);
@@ -36,20 +32,15 @@ export const LyricsEditor = ({
   ) => {
     const selection = window.getSelection();
     if (selection && selection.toString()) {
-      console.log("handleTextSelection");
-      const word = selection.toString();
+      const word = selection.toString().trim();
       setCurrentWord(word);
       const results = await fetchWordData(wordSearchParameter, word);
       console.log(results);
       switch (wordSearchParameter) {
         case "rhyme":
           setRhymes(results);
-        case "slantRhyme":
-          setSlantRhymes(results);
         case "synonym":
           setSynonyms(results);
-        case "wordBank":
-          setWordBank(results);
       }
     }
   };

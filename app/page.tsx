@@ -1,5 +1,5 @@
 "use client";
-import { Box, Flex, HStack, Heading, Textarea, VStack } from "@chakra-ui/react";
+import { Box, Flex, Heading } from "@chakra-ui/react";
 import { useState } from "react";
 import { LyricsEditor } from "./components/LyricsEditor";
 import { SearchResults } from "./components/SearchResults";
@@ -28,8 +28,6 @@ export default function Home() {
   const [wordSearchParameter, setWordSearchParameter] =
     useState<WordSearchParameter>("rhyme");
   const [rhymes, setRhymes] = useState<string[]>([]);
-  const [slantRhymes, setSlantRhymes] = useState<string[]>([]);
-  const [wordBank, setWordBank] = useState<DataMuseWordObject[]>([]);
   const [synonyms, setSynonyms] = useState<string[]>([]);
 
   return (
@@ -42,9 +40,7 @@ export default function Home() {
           wordSearchParameter={wordSearchParameter}
           setCurrentWord={setCurrentWord}
           setRhymes={setRhymes}
-          setSlantRhymes={setSlantRhymes}
           setSynonyms={setSynonyms}
-          setWordBank={setWordBank}
         />
         <SearchResults
           currentWord={currentWord}
@@ -52,9 +48,9 @@ export default function Home() {
           wordSearchParameter={wordSearchParameter}
           setWordSearchParameter={setWordSearchParameter}
           rhymes={rhymes}
-          slantRhymes={slantRhymes}
+          setRhymes={setRhymes}
           synonyms={synonyms}
-          wordBank={wordBank}
+          setSynonyms={setSynonyms}
         />
       </Flex>
     </Box>
