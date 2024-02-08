@@ -18,17 +18,8 @@ export const WordParameterSelector = ({
       <Button colorScheme="teal" onClick={() => handleButtonClick("rhyme")}>
         Rhymes
       </Button>
-      <Button
-        colorScheme="teal"
-        onClick={() => handleButtonClick("slantRhyme")}
-      >
-        Slant Rhymes
-      </Button>
       <Button colorScheme="teal" onClick={() => handleButtonClick("synonym")}>
         Synonyms
-      </Button>
-      <Button colorScheme="teal" onClick={() => handleButtonClick("wordBank")}>
-        Word Bank
       </Button>
     </HStack>
   );

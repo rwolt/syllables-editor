@@ -1,17 +1,13 @@
 import { Box, Flex, VStack, Textarea } from "@chakra-ui/react";
 import { Dispatch, SetStateAction, useState } from "react";
 import { syllable } from "syllable";
-import {
-  WordSearchParameter,
-  DataMuseWordObject,
-  RhymeBrainWordObject,
-} from "../page";
+import { WordSearchParameter, DataMuseWordObject } from "../page";
 import { fetchWordData } from "./utils/fetchFunctions";
 
 type LyricsEditorProps = {
   wordSearchParameter: WordSearchParameter;
   setCurrentWord: Dispatch<SetStateAction<string>>;
-  setRhymes: Dispatch<SetStateAction<RhymeBrainWordObject[]>>;
+  setRhymes: Dispatch<SetStateAction<string[]>>;
   setSlantRhymes: Dispatch<SetStateAction<string[]>>;
   setSynonyms: Dispatch<SetStateAction<DataMuseWordObject[]>>;
   setWordBank: Dispatch<SetStateAction<DataMuseWordObject[]>>;

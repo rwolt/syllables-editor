@@ -8,13 +8,13 @@ export const fetchWordData = async (
   let data = [];
   switch (searchParam) {
     case "rhyme":
-      data = await fetchRhymes(word);
+      data = await fetchRhymesFromServer(word);
       break;
     case "slantRhyme":
       data = await fetchSlantRhymes(word);
       break;
     case "synonym":
-      data = await fetchSynonyms(word);
+      data = await fetchSynonymsFromServer(word);
       break;
     case "wordBank":
       data = await fetchWordBank(word);
@@ -25,13 +25,25 @@ export const fetchWordData = async (
   return data;
 };
 
-const fetchRhymes = async (word: string) => {
-  console.log("fetching rhyme data");
-  const response = await fetch(
-    `https://rhymebrain.com/talk?function=getRhymes&word=${word}`
-  );
+export const fetchRhymesFromServer = async (word: string) => {
+  try {
+    const res = await fetch(`/api/rhyme?word=${word}`);
+    if (!res.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await res.json();
+    return data.data.rhymes.all;
+  } catch (error) {
+    console.error("Failed to fetch rhymes:", error);
+    return [];
+  }
+};
+
+const fetchSynonymsFromServer = async (word: string) => {
+  console.log("fetching syllable data");
+  const response = await fetch(`/api/synonym?word=${word}`);
   const data = await response.json();
-  return data;
+  return data.data.synonyms;
 };
 
 const fetchSlantRhymes = async (word: string) => {
@@ -46,14 +58,6 @@ const fetchSlantRhymes = async (word: string) => {
     .get(); // Convert to standard array
   return words;
 };
-
-const fetchSynonyms = async (word: string) => {
-  console.log("fetching syllable data");
-  const response = await fetch(`https://api.datamuse.com/words?ml=${word}`);
-  const data = await response.json();
-  return data;
-};
-
 const fetchWordBank = async (word: string) => {
   console.log("fetching word bank data");
   const response = await fetch(`https://api.datamuse.com/words?ml=${word}`);

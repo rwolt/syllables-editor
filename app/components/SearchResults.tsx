@@ -1,9 +1,5 @@
 import { Heading, Box, VStack, Grid, GridItem, Input } from "@chakra-ui/react";
-import {
-  DataMuseWordObject,
-  RhymeBrainWordObject,
-  WordSearchParameter,
-} from "../page";
+import { WordSearchParameter } from "../page";
 import { WordParameterSelector } from "./WordParameterSelector";
 import { Dispatch, SetStateAction } from "react";
 
@@ -12,10 +8,8 @@ type SearchResultsProps = {
   setCurrentWord: Dispatch<SetStateAction<string>>;
   setWordSearchParameter: Dispatch<SetStateAction<WordSearchParameter>>;
   wordSearchParameter: WordSearchParameter;
-  rhymes: RhymeBrainWordObject[];
-  slantRhymes: string[];
-  synonyms: DataMuseWordObject[];
-  wordBank: DataMuseWordObject[];
+  rhymes: string[];
+  synonyms: string[];
 };
 
 export const SearchResults = ({
@@ -23,30 +17,18 @@ export const SearchResults = ({
   wordSearchParameter,
   setWordSearchParameter,
   rhymes,
-  slantRhymes,
   synonyms,
-  wordBank,
 }: SearchResultsProps) => {
   const renderItems = () => {
     switch (wordSearchParameter) {
       case "rhyme":
         return rhymes.map((rhyme, index) => (
-          <GridItem key={index}>{rhyme.word}</GridItem>
-        ));
-        break;
-      case "slantRhyme":
-        return slantRhymes.map((slantRhyme, index) => (
-          <GridItem key={index}>{slantRhyme}</GridItem>
+          <GridItem key={index}>{rhyme}</GridItem>
         ));
         break;
       case "synonym":
         return synonyms.map((synonym, index) => (
-          <GridItem key={index}>{synonym.word}</GridItem>
-        ));
-        break;
-      case "wordBank":
-        return wordBank.map((word, index) => (
-          <GridItem key={index}>{word.word}</GridItem>
+          <GridItem key={index}>{synonym}</GridItem>
         ));
         break;
       default:

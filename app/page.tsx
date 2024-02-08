@@ -27,10 +27,10 @@ export default function Home() {
   const [currentWord, setCurrentWord] = useState("");
   const [wordSearchParameter, setWordSearchParameter] =
     useState<WordSearchParameter>("rhyme");
-  const [rhymes, setRhymes] = useState<RhymeBrainWordObject[]>([]);
+  const [rhymes, setRhymes] = useState<string[]>([]);
   const [slantRhymes, setSlantRhymes] = useState<string[]>([]);
   const [wordBank, setWordBank] = useState<DataMuseWordObject[]>([]);
-  const [synonyms, setSynonyms] = useState<DataMuseWordObject[]>([]);
+  const [synonyms, setSynonyms] = useState<string[]>([]);
 
   return (
     <Box w="full">
