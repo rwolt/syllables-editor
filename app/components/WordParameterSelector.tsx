@@ -9,6 +9,7 @@ type WordParameterSelectorProps = {
   setWordSearchParameter: Dispatch<SetStateAction<WordSearchParameter>>;
   setRhymes: Dispatch<SetStateAction<string[]>>;
   setSynonyms: Dispatch<SetStateAction<string[]>>;
+  setWordBank: Dispatch<SetStateAction<string[]>>;
 };
 
 export const WordParameterSelector = ({
@@ -17,6 +18,7 @@ export const WordParameterSelector = ({
   setWordSearchParameter,
   setRhymes,
   setSynonyms,
+  setWordBank,
 }: WordParameterSelectorProps) => {
   const handleButtonClick = async (searchParam: WordSearchParameter) => {
     setWordSearchParameter(searchParam);
@@ -24,6 +26,7 @@ export const WordParameterSelector = ({
     // If so, clear the arrays, if not just fetch the data for the selected parameter
     setRhymes([]);
     setSynonyms([]);
+    setWordBank([]);
     const results = await fetchWordData(searchParam, currentWord.trim());
     switch (searchParam) {
       case "rhyme":
@@ -31,6 +34,9 @@ export const WordParameterSelector = ({
         break;
       case "synonym":
         setSynonyms(results);
+        break;
+      case "wordBank":
+        setWordBank(results);
         break;
     }
   };
@@ -42,6 +48,9 @@ export const WordParameterSelector = ({
       </Button>
       <Button colorScheme="teal" onClick={() => handleButtonClick("synonym")}>
         Synonyms
+      </Button>
+      <Button colorScheme="teal" onClick={() => handleButtonClick("wordBank")}>
+        Word Bank
       </Button>
     </HStack>
   );

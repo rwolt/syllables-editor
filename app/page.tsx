@@ -4,24 +4,7 @@ import { useState } from "react";
 import { LyricsEditor } from "./components/LyricsEditor";
 import { SearchResults } from "./components/SearchResults";
 
-export type RhymeBrainWordObject = {
-  word: string;
-  frequency: number;
-  score: string;
-  flags: string;
-  syllables: string;
-};
-
-export type DataMuseWordObject = {
-  word: string;
-  score: number;
-};
-
-export type WordSearchParameter =
-  | "rhyme"
-  | "slantRhyme"
-  | "synonym"
-  | "wordBank";
+export type WordSearchParameter = "rhyme" | "synonym" | "wordBank";
 
 export default function Home() {
   const [currentWord, setCurrentWord] = useState("");
@@ -29,6 +12,7 @@ export default function Home() {
     useState<WordSearchParameter>("rhyme");
   const [rhymes, setRhymes] = useState<string[]>([]);
   const [synonyms, setSynonyms] = useState<string[]>([]);
+  const [wordBank, setWordBank] = useState<string[]>([]);
 
   return (
     <Box w="full">
@@ -51,6 +35,8 @@ export default function Home() {
           setRhymes={setRhymes}
           synonyms={synonyms}
           setSynonyms={setSynonyms}
+          wordBank={wordBank}
+          setWordBank={setWordBank}
         />
       </Flex>
     </Box>

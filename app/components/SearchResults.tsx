@@ -1,4 +1,4 @@
-import { Heading, Box, VStack, Grid, GridItem, Input } from "@chakra-ui/react";
+import { Box, VStack, Grid, GridItem, Input } from "@chakra-ui/react";
 import { WordSearchParameter } from "../page";
 import { WordParameterSelector } from "./WordParameterSelector";
 import { Dispatch, SetStateAction } from "react";
@@ -13,6 +13,8 @@ type SearchResultsProps = {
   setRhymes: Dispatch<SetStateAction<string[]>>;
   synonyms: string[];
   setSynonyms: Dispatch<SetStateAction<string[]>>;
+  wordBank: string[];
+  setWordBank: Dispatch<SetStateAction<string[]>>;
 };
 
 export const SearchResults = ({
@@ -24,6 +26,8 @@ export const SearchResults = ({
   setRhymes,
   synonyms,
   setSynonyms,
+  wordBank,
+  setWordBank,
 }: SearchResultsProps) => {
   const renderItems = () => {
     switch (wordSearchParameter) {
@@ -37,6 +41,12 @@ export const SearchResults = ({
           <GridItem key={index}>{synonym}</GridItem>
         ));
         break;
+      case "wordBank":
+        return wordBank.map((word, index) => (
+          <GridItem key={index}>{word}</GridItem>
+        ));
+        break;
+
       default:
         return [];
     }
@@ -50,6 +60,7 @@ export const SearchResults = ({
     e.preventDefault();
     setRhymes([]);
     setSynonyms([]);
+    setWordBank([]);
     const results = await fetchWordData(
       wordSearchParameter,
       currentWord.trim()
@@ -60,6 +71,9 @@ export const SearchResults = ({
         break;
       case "synonym":
         setSynonyms(results);
+        break;
+      case "wordBank":
+        setWordBank(results);
         break;
     }
   };
@@ -80,6 +94,7 @@ export const SearchResults = ({
         setWordSearchParameter={setWordSearchParameter}
         setRhymes={setRhymes}
         setSynonyms={setSynonyms}
+        setWordBank={setWordBank}
       />
       {renderItems().length > 0 && (
         <Grid

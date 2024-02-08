@@ -1,7 +1,7 @@
 import { Box, Flex, VStack, Textarea } from "@chakra-ui/react";
 import { Dispatch, SetStateAction, useState } from "react";
 import { syllable } from "syllable";
-import { WordSearchParameter, DataMuseWordObject } from "../page";
+import { WordSearchParameter } from "../page";
 import { fetchWordData } from "./utils/fetchFunctions";
 
 type LyricsEditorProps = {
