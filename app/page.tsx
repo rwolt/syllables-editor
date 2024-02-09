@@ -15,11 +15,16 @@ export default function Home() {
   const [wordBank, setWordBank] = useState<string[]>([]);
 
   return (
-    <Box w="full">
-      <Heading fontSize={["lg", "xl", "2xl"]} m={4}>
+    <Box
+      h="full"
+      mx={{ base: 0, lg: 4 }}
+      m={{ base: 0, lg: "auto" }}
+      maxW="1200"
+    >
+      <Heading fontSize={["lg", "xl", "2xl"]} w="full">
         Syllable Text Editor
       </Heading>
-      <Flex>
+      <Flex direction={{ base: "column", lg: "row" }} h="full">
         <LyricsEditor
           wordSearchParameter={wordSearchParameter}
           setCurrentWord={setCurrentWord}

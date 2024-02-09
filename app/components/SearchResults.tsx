@@ -1,8 +1,10 @@
 import { Box, VStack, Grid, GridItem, Input } from "@chakra-ui/react";
+import { DraggableHandle } from "./DraggableHandle";
 import { WordSearchParameter } from "../page";
 import { WordParameterSelector } from "./WordParameterSelector";
 import { Dispatch, SetStateAction } from "react";
 import { fetchWordData } from "./utils/fetchFunctions";
+import { useMediaQuery } from "@chakra-ui/react";
 
 type SearchResultsProps = {
   currentWord: string;
@@ -29,6 +31,8 @@ export const SearchResults = ({
   wordBank,
   setWordBank,
 }: SearchResultsProps) => {
+  const [isLessThan62em] = useMediaQuery("(max-width: 62em)");
+
   const renderItems = () => {
     switch (wordSearchParameter) {
       case "rhyme":
@@ -79,13 +83,17 @@ export const SearchResults = ({
   };
 
   return (
-    <Box w="800px" h="full" p={4} border="1px solid blue">
+    <Box bgColor="purple.900" px={4} borderRadius="lg" flex={5}>
+      {isLessThan62em && <DraggableHandle />}
       <form onSubmit={handleFormSubmit}>
         <Input
           size={["md", "md", "lg"]}
+          mt={{ base: 0, lg: 4 }}
           mb={4}
           value={currentWord}
           onChange={handleTextChange}
+          bg="white"
+          textColor="black"
         ></Input>
       </form>
       <WordParameterSelector
@@ -98,7 +106,7 @@ export const SearchResults = ({
       />
       {renderItems().length > 0 && (
         <Grid
-          templateColumns={["1fr", "repeat(3, 1fr)", "repeat(5, 1fr)"]}
+          templateColumns={["1fr", "repeat(2, 1fr)", "repeat(3, 1fr)"]}
           templateRows="25"
         >
           {renderItems()}

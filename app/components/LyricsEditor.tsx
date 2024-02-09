@@ -46,8 +46,8 @@ export const LyricsEditor = ({
   };
 
   return (
-    <Box w="800px" h="full" p={4}>
-      <Flex>
+    <Box h="full" flex={7}>
+      <Flex h="full">
         <VStack w="50px" pt={2} spacing={0}>
           {syllableCounts.map((count, index) => (
             <Box
@@ -70,7 +70,8 @@ export const LyricsEditor = ({
           resize="none"
           fontSize={["md", "lg", "xl"]}
           lineHeight="20px"
-          h="1000px"
+          borderRadius="lg"
+          h="full"
         />
       </Flex>
     </Box>
