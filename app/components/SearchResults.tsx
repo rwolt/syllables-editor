@@ -1,4 +1,5 @@
-import { Box, VStack, Grid, GridItem, Input } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Input, VStack } from "@chakra-ui/react";
+import { SearchResultsDrawer } from "./SearchResultsDrawer";
 import { DraggableHandle } from "./DraggableHandle";
 import { WordSearchParameter } from "../page";
 import { WordParameterSelector } from "./WordParameterSelector";
@@ -19,7 +20,7 @@ type SearchResultsProps = {
   setWordBank: Dispatch<SetStateAction<string[]>>;
 };
 
-export const SearchResults = ({
+const SearchResults = ({
   currentWord,
   setCurrentWord,
   wordSearchParameter,
@@ -105,13 +106,61 @@ export const SearchResults = ({
         setWordBank={setWordBank}
       />
       {renderItems().length > 0 && (
-        <Grid
-          templateColumns={["1fr", "repeat(2, 1fr)", "repeat(3, 1fr)"]}
-          templateRows="25"
-        >
-          {renderItems()}
-        </Grid>
+        <VStack overflowY="auto" maxHeight="full">
+          <Grid
+            templateColumns={["1fr", "repeat(2, 1fr)", "repeat(3, 1fr)"]}
+            templateRows="25"
+            textColor="white"
+          >
+            {renderItems()}
+          </Grid>
+        </VStack>
       )}
     </Box>
+  );
+};
+
+export const SearchResultsBox = ({
+  currentWord,
+  setCurrentWord,
+  wordSearchParameter,
+  setWordSearchParameter,
+  rhymes,
+  setRhymes,
+  synonyms,
+  setSynonyms,
+  wordBank,
+  setWordBank,
+}: SearchResultsProps) => {
+  const [isLessThan62em] = useMediaQuery("(max-width: 62em)");
+
+  return isLessThan62em ? (
+    <SearchResultsDrawer>
+      <SearchResults
+        currentWord={currentWord}
+        setCurrentWord={setCurrentWord}
+        wordSearchParameter={wordSearchParameter}
+        setWordSearchParameter={setWordSearchParameter}
+        rhymes={rhymes}
+        setRhymes={setRhymes}
+        synonyms={synonyms}
+        setSynonyms={setSynonyms}
+        wordBank={wordBank}
+        setWordBank={setWordBank}
+      />
+    </SearchResultsDrawer>
+  ) : (
+    <SearchResults
+      currentWord={currentWord}
+      setCurrentWord={setCurrentWord}
+      wordSearchParameter={wordSearchParameter}
+      setWordSearchParameter={setWordSearchParameter}
+      rhymes={rhymes}
+      setRhymes={setRhymes}
+      synonyms={synonyms}
+      setSynonyms={setSynonyms}
+      wordBank={wordBank}
+      setWordBank={setWordBank}
+    />
   );
 };

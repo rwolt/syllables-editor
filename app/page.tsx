@@ -2,7 +2,8 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import { useState } from "react";
 import { LyricsEditor } from "./components/LyricsEditor";
-import { SearchResults } from "./components/SearchResults";
+import { SearchResultsBox } from "./components/SearchResults";
+import { Header } from "./components/Header";
 
 export type WordSearchParameter = "rhyme" | "synonym" | "wordBank";
 
@@ -13,25 +14,22 @@ export default function Home() {
   const [rhymes, setRhymes] = useState<string[]>([]);
   const [synonyms, setSynonyms] = useState<string[]>([]);
   const [wordBank, setWordBank] = useState<string[]>([]);
-
   return (
-    <Box
-      h="full"
-      mx={{ base: 0, lg: 4 }}
-      m={{ base: 0, lg: "auto" }}
-      maxW="1200"
-    >
-      <Heading fontSize={["lg", "xl", "2xl"]} w="full">
-        Syllable Text Editor
-      </Heading>
-      <Flex direction={{ base: "column", lg: "row" }} h="full">
+    <Box h="100vh" mx={{ base: 0, lg: 4 }}>
+      <Header />
+      <Flex
+        direction={{ base: "column", lg: "row" }}
+        h="full"
+        maxW="1200"
+        m={{ base: 0, lg: "auto" }}
+      >
         <LyricsEditor
           wordSearchParameter={wordSearchParameter}
           setCurrentWord={setCurrentWord}
           setRhymes={setRhymes}
           setSynonyms={setSynonyms}
         />
-        <SearchResults
+        <SearchResultsBox
           currentWord={currentWord}
           setCurrentWord={setCurrentWord}
           wordSearchParameter={wordSearchParameter}
